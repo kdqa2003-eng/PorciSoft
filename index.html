@@ -12,43 +12,130 @@
     <link rel="stylesheet" href="app/css/tables.css">
     <link rel="stylesheet" href="app/css/dashboard.css">
     
-    <!-- Chart.js desde CDN (necesario para los gráficos) -->
+    <!-- Chart.js desde CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐷</text></svg>">
+    
+    <style>
+        /* Splash screen mientras carga la app */
+        #appSplash {
+            position: fixed;
+            inset: 0;
+            background: var(--bg, #f1f5f9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        #appSplash.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .splash-logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 1.2s infinite;
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .splash-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary, #2563eb);
+            margin-bottom: 10px;
+        }
+        .splash-subtitle {
+            font-size: 1rem;
+            color: var(--text-light, #64748b);
+        }
+        .splash-loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--border, #e2e8f0);
+            border-top-color: var(--primary, #2563eb);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-top: 30px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer fijo */
+        .app-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card, #ffffff);
+            border-top: 1px solid var(--border, #e2e8f0);
+            padding: 6px 20px;
+            font-size: 0.75rem;
+            color: var(--text-light, #64748b);
+            text-align: center;
+            z-index: 50;
+        }
+        .main-content {
+            padding-bottom: 30px; /* para que no tape el footer */
+        }
+    </style>
 </head>
 <body>
+
+    <!-- ==================== SPLASH SCREEN ==================== -->
+    <div id="appSplash">
+        <div class="splash-logo">🐷</div>
+        <div class="splash-title">PorciSoft Pro</div>
+        <div class="splash-subtitle">Gestión Inteligente de Granjas Porcinas</div>
+        <div class="splash-loader"></div>
+    </div>
+
     <!-- ==================== BARRA SUPERIOR ==================== -->
-    <header id="topBar" class="top-bar">
+    <header id="topBar" class="top-bar" style="display: none;">
         <div class="top-bar-left">
             <button id="toggleMenu" class="btn-icon" title="Menú lateral">☰</button>
             <span class="app-title">🐷 PorciSoft Pro</span>
         </div>
         <div class="top-bar-center">
-            <input type="text" id="globalSearch" class="global-search" placeholder="🔍 Buscar animales, cerdas, verracos... (Ctrl+F)">
+            <input type="text" id="globalSearch" class="global-search" placeholder="🔍 Buscar animales, cerdas, verracos...">
         </div>
         <div class="top-bar-right">
             <span id="clock" class="clock">00:00</span>
             <button id="btnTheme" class="btn-icon" title="Cambiar tema claro/oscuro">🌙</button>
-            <button id="btnQuickBackup" class="btn-icon" title="Respaldo rápido (Ctrl+B)">💾</button>
+            <button id="btnQuickBackup" class="btn-icon" title="Respaldo rápido">💾</button>
             <span class="user-badge">👤 Administrador</span>
         </div>
     </header>
 
     <!-- ==================== MENÚ LATERAL ==================== -->
-    <nav id="sideMenu" class="side-menu open">
+    <nav id="sideMenu" class="side-menu open" style="display: none;">
         <ul id="menuList" class="menu-list">
             <!-- Se llena con menu.js -->
         </ul>
     </nav>
 
     <!-- ==================== ÁREA PRINCIPAL ==================== -->
-    <main id="mainContent" class="main-content">
+    <main id="mainContent" class="main-content" style="display: none;">
         <div id="moduleContainer" class="module-container">
-            <p style="text-align:center; margin-top:40px;">Cargando aplicación...</p>
+            <!-- Mensaje de bienvenida inicial (se reemplazará por el dashboard) -->
+            <div style="text-align:center; margin-top:60px;">
+                <h1 style="font-size:2rem; color:var(--primary);">🐷 Bienvenido a PorciSoft Pro</h1>
+                <p style="font-size:1.2rem; color:var(--text-light);">Cargando el panel de control...</p>
+                <div style="width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;margin:20px auto;"></div>
+            </div>
         </div>
     </main>
+
+    <!-- ==================== PIE DE PÁGINA ==================== -->
+    <footer class="app-footer" style="display: none;">
+        PorciSoft Pro v1.0.0 | &copy; 2026 | Todos los derechos reservados
+    </footer>
 
     <!-- ==================== MODAL GENÉRICO ==================== -->
     <div id="modalOverlay" class="modal-overlay hidden">
@@ -77,7 +164,29 @@
         };
     </script>
     
-    <!-- Script principal (módulo ES6) cargado desde la carpeta app -->
+    <!-- Script principal (módulo ES6) -->
     <script type="module" src="app/js/main.js"></script>
+
+    <!-- Inicialización: ocultar splash y mostrar UI cuando el módulo principal haya cargado -->
+    <script>
+        // Esperar a que main.js se cargue y el dashboard esté listo
+        window.addEventListener('load', () => {
+            // Dar tiempo para que el dashboard se renderice (si se carga rápido)
+            setTimeout(() => {
+                const splash = document.getElementById('appSplash');
+                const topBar = document.getElementById('topBar');
+                const sideMenu = document.getElementById('sideMenu');
+                const mainContent = document.getElementById('mainContent');
+                const footer = document.querySelector('.app-footer');
+                
+                if (splash) splash.classList.add('hidden');
+                if (topBar) topBar.style.display = 'flex';
+                if (sideMenu) sideMenu.style.display = 'block';
+                if (mainContent) mainContent.style.display = 'flex';
+                if (footer) footer.style.display = 'block';
+            }, 800); // pequeño retraso para la animación
+        });
+    </script>
+
 </body>
 </html>
