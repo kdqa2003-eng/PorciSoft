@@ -1,0 +1,130 @@
+/* ============================================
+   Dashboard
+   ============================================ */
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: var(--transition);
+    cursor: pointer;
+    border: 1px solid var(--border);
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+.stat-icon.blue { background: #dbeafe; }
+.stat-icon.green { background: #dcfce7; }
+.stat-icon.orange { background: #fef3c7; }
+.stat-icon.red { background: #fee2e2; }
+.stat-icon.purple { background: #f3e8ff; }
+.stat-icon.cyan { background: #cffafe; }
+.stat-icon.pink { background: #fce7f3; }
+
+[data-theme="dark"] .stat-icon.blue { background: #1e3a5f; }
+[data-theme="dark"] .stat-icon.green { background: #14532d; }
+[data-theme="dark"] .stat-icon.orange { background: #713f12; }
+[data-theme="dark"] .stat-icon.red { background: #7f1d1d; }
+[data-theme="dark"] .stat-icon.purple { background: #3b0764; }
+[data-theme="dark"] .stat-icon.cyan { background: #164e63; }
+[data-theme="dark"] .stat-icon.pink { background: #831843; }
+
+.stat-info h4 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-info p {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 2px;
+}
+
+.charts-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 16px;
+}
+
+.chart-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.chart-card h3 {
+    font-size: 1rem;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.chart-container {
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Toolbar */
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    flex-wrap: wrap;
+}
+
+.toolbar .form-control {
+    width: auto;
+    min-width: 180px;
+}
+
+.section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.section-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 16px;
+}

@@ -1,0 +1,76 @@
+/* ============================================
+   Menú lateral
+   ============================================ */
+
+.side-menu {
+    position: fixed;
+    top: var(--topbar-height);
+    left: 0;
+    bottom: 0;
+    width: var(--menu-width);
+    background: var(--bg-card);
+    border-right: 1px solid var(--border);
+    z-index: 90;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+}
+
+.side-menu.closed { transform: translateX(-100%); }
+
+.menu-list {
+    list-style: none;
+    padding: 8px 0;
+}
+
+.menu-item {
+    padding: 0;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+}
+
+.menu-link:hover {
+    background: rgba(37,99,235,0.08);
+    border-left-color: var(--primary-light);
+}
+
+.menu-link.active {
+    background: rgba(37,99,235,0.12);
+    border-left-color: var(--primary);
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.menu-icon {
+    font-size: 1.2rem;
+    width: 28px;
+    text-align: center;
+}
+
+.menu-section-title {
+    padding: 16px 20px 6px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    font-weight: 700;
+}
+
+.menu-submenu {
+    padding-left: 20px;
+}
+
+.menu-submenu .menu-link {
+    font-size: 0.82rem;
+    padding: 7px 20px;
+}

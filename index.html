@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐷 PorciSoft Pro - Gestión de Granjas Porcinas</title>
+    
+    <!-- Estilos en orden de cascada -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <!-- Chart.js desde CDN (necesario para gráficos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐷</text></svg>">
+</head>
+<body>
+    <!-- ==================== BARRA SUPERIOR ==================== -->
+    <header id="topBar" class="top-bar">
+        <div class="top-bar-left">
+            <button id="toggleMenu" class="btn-icon" title="Menú lateral">☰</button>
+            <span class="app-title">🐷 PorciSoft Pro</span>
+        </div>
+        <div class="top-bar-center">
+            <input type="text" id="globalSearch" class="global-search" placeholder="🔍 Buscar animales, cerdas, verracos... (Ctrl+F)">
+        </div>
+        <div class="top-bar-right">
+            <span id="clock" class="clock">00:00</span>
+            <button id="btnTheme" class="btn-icon" title="Cambiar tema claro/oscuro">🌙</button>
+            <button id="btnQuickBackup" class="btn-icon" title="Respaldo rápido (Ctrl+B)">💾</button>
+            <span class="user-badge">👤 Administrador</span>
+        </div>
+    </header>
+
+    <!-- ==================== MENÚ LATERAL ==================== -->
+    <nav id="sideMenu" class="side-menu open">
+        <ul id="menuList" class="menu-list">
+            <!-- Se llena dinámicamente con menu.js -->
+        </ul>
+    </nav>
+
+    <!-- ==================== ÁREA PRINCIPAL ==================== -->
+    <main id="mainContent" class="main-content">
+        <div id="moduleContainer" class="module-container">
+            <!-- Carga inicial del dashboard -->
+            <div class="loading-placeholder">
+                <p>Cargando módulo...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== MODAL GENÉRICO ==================== -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3 id="modalTitle">Título del modal</h3>
+                <button class="btn-icon modal-close" onclick="window.closeModal()">✕</button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Contenido dinámico -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="window.closeModal()">Cancelar</button>
+                <button id="modalConfirmBtn" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== NOTIFICACIONES TOAST ==================== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <!-- Carga el punto de entrada como módulo ES6 -->
+    <script type="module" src="js/main.js"></script>
+    
+    <!-- Script mínimo para manejo del modal en caso de que se llame antes de cargar main.js -->
+    <script>
+        // Función global para cerrar modal (usada en el botón X y onclick)
+        window.closeModal = function() {
+            const overlay = document.getElementById('modalOverlay');
+            if (overlay) overlay.classList.add('hidden');
+        };
+    </script>
+</body>
+</html>
