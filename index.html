@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐷 PorciSoft Pro - Gestión de Granjas Porcinas</title>
     
-    <!-- Estilos en orden de cascada -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <link rel="stylesheet" href="css/forms.css">
-    <link rel="stylesheet" href="css/tables.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- Hojas de estilo (rutas relativas a la carpeta app) -->
+    <link rel="stylesheet" href="app/css/style.css">
+    <link rel="stylesheet" href="app/css/menu.css">
+    <link rel="stylesheet" href="app/css/forms.css">
+    <link rel="stylesheet" href="app/css/tables.css">
+    <link rel="stylesheet" href="app/css/dashboard.css">
     
-    <!-- Chart.js desde CDN (necesario para gráficos) -->
+    <!-- Chart.js desde CDN (necesario para los gráficos) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <!-- Favicon -->
@@ -39,17 +39,14 @@
     <!-- ==================== MENÚ LATERAL ==================== -->
     <nav id="sideMenu" class="side-menu open">
         <ul id="menuList" class="menu-list">
-            <!-- Se llena dinámicamente con menu.js -->
+            <!-- Se llena con menu.js -->
         </ul>
     </nav>
 
     <!-- ==================== ÁREA PRINCIPAL ==================== -->
     <main id="mainContent" class="main-content">
         <div id="moduleContainer" class="module-container">
-            <!-- Carga inicial del dashboard -->
-            <div class="loading-placeholder">
-                <p>Cargando módulo...</p>
-            </div>
+            <p style="text-align:center; margin-top:40px;">Cargando aplicación...</p>
         </div>
     </main>
 
@@ -57,12 +54,10 @@
     <div id="modalOverlay" class="modal-overlay hidden">
         <div class="modal-window">
             <div class="modal-header">
-                <h3 id="modalTitle">Título del modal</h3>
+                <h3 id="modalTitle">Título</h3>
                 <button class="btn-icon modal-close" onclick="window.closeModal()">✕</button>
             </div>
-            <div id="modalBody" class="modal-body">
-                <!-- Contenido dinámico -->
-            </div>
+            <div id="modalBody" class="modal-body"></div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="window.closeModal()">Cancelar</button>
                 <button id="modalConfirmBtn" class="btn btn-primary">Aceptar</button>
@@ -74,16 +69,15 @@
     <div id="toastContainer" class="toast-container"></div>
 
     <!-- ==================== SCRIPTS ==================== -->
-    <!-- Carga el punto de entrada como módulo ES6 -->
-    <script type="module" src="js/main.js"></script>
-    
-    <!-- Script mínimo para manejo del modal en caso de que se llame antes de cargar main.js -->
     <script>
-        // Función global para cerrar modal (usada en el botón X y onclick)
+        // Función global para cerrar modal
         window.closeModal = function() {
             const overlay = document.getElementById('modalOverlay');
             if (overlay) overlay.classList.add('hidden');
         };
     </script>
+    
+    <!-- Script principal (módulo ES6) cargado desde la carpeta app -->
+    <script type="module" src="app/js/main.js"></script>
 </body>
 </html>
